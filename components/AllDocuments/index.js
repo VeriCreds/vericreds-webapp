@@ -192,7 +192,7 @@ const AllDocuments = (props) => {
       </div>
       {
         showUploadModal &&
-        <Modal />
+        <Modal cancelHandler={() => setShowUploadModal(false)}/>
       }
     </>
   );
