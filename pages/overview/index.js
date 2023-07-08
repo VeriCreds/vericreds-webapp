@@ -1,23 +1,22 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import {Allan, Inter} from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useEvmNativeBalance } from '@moralisweb3/next';
-import Sidebar from '../../components/Sidebar';
-import Topbar from '../../components/Topbar';
-import Index from '../../components/AllDocuments';
+import Sidebar from '@/components/Sidebar';
+import Topbar from '@/components/Topbar';
+import AllDocuments from '../../components/AllDocuments';
 import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ['latin'] })
 
 function Home({ user }) {
   const address = process.env.NEXT_PUBLIC_WALLET_ADDRESS;
-  const { data: nativeBalance } = useEvmNativeBalance({ address });
+  const { data } = useEvmNativeBalance({ address });
 
   return (
     <>
       <Head>
-        <title>VeriCreds</title>
+        <title>VeriCreds | Overview</title>
         <meta name="description" content="VeriCreds app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -37,7 +36,7 @@ function Home({ user }) {
             <Sidebar />
           </div>
           <div className="content flex-grow bg-white">
-            <Index
+            <AllDocuments
               user={user}
             />
           </div>
