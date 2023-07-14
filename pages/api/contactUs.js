@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         const response = await verifyRecaptcha(gReCaptchaToken);
 
         if (response.data.success && response.data.score > 0.5) {
-            await axios.post("https://getform.io/f/c9a0111b-5cf1-4a2a-a27d-fb7beb55420f",
+            await axios.post("https://getform.io/f/ad80d13a-bbcc-4ad1-b6b1-f7216851a9f8",
               {
                   email: email,
                   subject: subject,
