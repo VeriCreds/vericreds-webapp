@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
 
 const Modal = (props) => {
+  const [files, setFiles] = useState([]);
+
   return (
     <div className="modal-background">
       <div className="modal-content">
         <h2 className="text-xl font-bold mb-2">Upload Document</h2>
-        <DragDropFile />
+        <DragDropFile files={files} setFiles={setFiles} />
+        {
+          files.map((file) => {
+            return (
+              <div key={file.lastModified}>{file.lastModified}</div>
+            )
+          })
+        }
         <div>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Upload</button>
           <button
@@ -17,8 +26,9 @@ const Modal = (props) => {
   );
 };
 
-const DragDropFile = () => {
+const DragDropFile = (props) => {
   const [dragActive, setDragActive] = useState(false);
+  const {files, setFiles} = props;
 
   const handleDrag = function(e) {
     e.preventDefault();
@@ -36,7 +46,9 @@ const DragDropFile = () => {
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       // at least one file has been dropped so do something
-      // handleFiles(e.dataTransfer.files);
+      const filesCopy = files.slice();
+      filesCopy.push(e.dataTransfer.files[0]);
+      setFiles(filesCopy);
     }
   };
 
@@ -45,6 +57,9 @@ const DragDropFile = () => {
     if (e.target.files && e.target.files[0]) {
       // at least one file has been selected so do something
       // handleFiles(e.target.files);
+      const filesCopy = files.slice();
+      filesCopy.push(e.target.files[0]);
+      setFiles(filesCopy);
     }
   };
 
