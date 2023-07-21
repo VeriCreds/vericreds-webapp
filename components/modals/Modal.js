@@ -11,7 +11,7 @@ const Modal = (props) => {
         {
           files.map((file) => {
             return (
-              <div key={file.lastModified}>{file.lastModified}</div>
+              <div key={file.lastModified}>{file.name}</div>
             )
           })
         }
@@ -45,7 +45,6 @@ const DragDropFile = (props) => {
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      // at least one file has been dropped so do something
       const filesCopy = files.slice();
       filesCopy.push(e.dataTransfer.files[0]);
       setFiles(filesCopy);
@@ -55,8 +54,6 @@ const DragDropFile = (props) => {
   const handleChange = function(e) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
-      // at least one file has been selected so do something
-      // handleFiles(e.target.files);
       const filesCopy = files.slice();
       filesCopy.push(e.target.files[0]);
       setFiles(filesCopy);
@@ -69,7 +66,6 @@ const DragDropFile = (props) => {
       <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
         <div>
           <p>Drag and Drop Files Here</p>
-          {/*<button className="upload-button">Upload a file</button>*/}
         </div> 
       </label>
       {
