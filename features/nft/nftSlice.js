@@ -26,14 +26,6 @@ export const nftSlice = createSlice({
             };
         },
     },
-    // extraReducers: {
-    //     [HYDRATE]: (state, action) => {
-    //         return {
-    //             ...state,
-    //             ...action.payload.nft,
-    //         };
-    //     },
-    // },
     extraReducers: builder => {
         builder.addCase(HYDRATE, (state, action) => {
             return {

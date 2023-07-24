@@ -4,7 +4,7 @@ import {signOut} from "next-auth/react";
 // project imports
 import TableList from "@/components/AllDocuments/TableList";
 import TableGrid from "@/components/AllDocuments/TableGrid";
-import Modal from '../modals/Modal';
+import UploadModal from '../modals/UploadModal';
 
 const AllDocuments = (props) => {
 
@@ -109,11 +109,36 @@ const AllDocuments = (props) => {
     }
   ]
 
+  const [fileChosen, setFileChosen] = useState(false);
+
   // Set state variable for showing grid view
   const [viewMode, setViewMode] = useState('list');
 
   // State variables for showing modals
   const [showUploadModal, setShowUploadModal] = useState(false);
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const buttonStyle = {
+    position: 'fixed',
+    bottom: '80px',
+    right: '100px',
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    backgroundColor: isHovered ? 'rgba(37,99,235,1)' : 'rgba(37,99,235,0.7)',
+    color: '#fff',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '24px',
+    boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)',
+    cursor: 'pointer',
+    zIndex: 9999,
+    transition: 'all 0.3s ease',
+    transform: isHovered ? 'scale(1.1)' : 'scale(1)'
+  };
 
   return (
     <>
@@ -130,11 +155,15 @@ const AllDocuments = (props) => {
             </button>
             <div className="flex justify-end">
               <div className="mr-5">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded-full flex items-center justify-center" onClick={() => setShowUploadModal(true)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                <button
+                    style={buttonStyle}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => setShowUploadModal(true)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{height: '24px', width: '24px'}}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  Upload
                 </button>
               </div>
               <div className="bg-gray-200 text-sm text-gray-500 leading-none border-2 border-gray-200 rounded-full inline-flex">
@@ -192,7 +221,10 @@ const AllDocuments = (props) => {
       </div>
       {
         showUploadModal &&
-        <Modal cancelHandler={() => setShowUploadModal(false)}/>
+        <UploadModal
+            fileChosen={fileChosen}
+            setFileChosen={setFileChosen}
+            cancelHandler={() => setShowUploadModal(false)}/>
       }
     </>
   );

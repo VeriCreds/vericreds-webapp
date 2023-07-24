@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const Sidebar = () => {
@@ -8,7 +7,7 @@ const Sidebar = () => {
         <div className="logo-part flex flex-col items-center mt-5">
           <Link href="/" className="text-white text-lg mb-5">VeriCreds</Link>
           <Link href="/overview">
-            <Image
+            <img
               src="/logo.png"
               alt="VeriCreds Logo"
               width={50}
