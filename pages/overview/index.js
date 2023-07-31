@@ -52,7 +52,7 @@ export const getServerSideProps = async (context) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/signin',
+        destination: '/login',
         permanent: false,
       },
     };
