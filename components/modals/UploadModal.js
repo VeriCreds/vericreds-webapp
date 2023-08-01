@@ -18,17 +18,17 @@ const UploadModal = (props) => {
         }
         { file &&
           <>
-            <p>{file.name}</p>
-            <div>
-              <label htmlFor="status">Status</label>
+            <p style={{fontStyle: "italic"}}>{file.name}</p>
+            {/*<div>
+              <label htmlFor="status">Status </label>
               <select name="status" id="status" onChange={(e) => setStatus(e.target.value)}>
                 <option value="minted">Minted</option>
                 <option value="shared">Shared</option>
                 <option value="verified">Verified</option>
               </select>
-            </div>
+            </div>*/}
             <div>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Category </label>
               <select name="category" id="category" onChange={(e) => setCategory(e.target.value)}>
                 { categories.map((category) => {
                   return <option key={category} value={category.toLowerCase()}>{category}</option>

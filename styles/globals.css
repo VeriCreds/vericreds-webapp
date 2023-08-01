@@ -105,3 +105,13 @@
   bottom: 0px;
   left: 0px;
 }
+
+.error {
+  color: red;
+}
+
+select {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0.25rem;
+}
