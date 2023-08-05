@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Topbar from "@/components/Topbar";
 import Sidebar from "@/components/Sidebar";
+import VerifyModal from "@/components/modals/VerifyModal";
 
 const Nft = () => {
     const nftAttributes = useSelector((state) => state.nft.value);
+    const [showVerifyModal, setShowVerifyModal] = useState(false);
 
     return (
         <>
@@ -31,23 +33,38 @@ const Nft = () => {
                             <div className="p-5">
                                 <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     NFT Details</h1>
-                                <h2 className="font-normal text-gray-700 dark:text-gray-400">
-                                    Name: {nftAttributes.name}
-                                </h2>
-                                <p className="font-normal text-gray-700 dark:text-gray-400">
-                                    Format: {nftAttributes.format}
-                                </p>
-                                <p className="font-normal text-gray-700 dark:text-gray-400">
-                                    Status: {nftAttributes.status}
-                                </p>
-                                <p className="font-normal text-gray-700 dark:text-gray-400">
-                                    Category: {nftAttributes.category}
-                                </p>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                  <div>
+                                    <h2 className="font-normal text-gray-700 dark:text-gray-400">
+                                        Name: {nftAttributes.name}
+                                    </h2>
+                                    <p className="font-normal text-gray-700 dark:text-gray-400">
+                                        Format: {nftAttributes.format}
+                                    </p>
+                                    <p className="font-normal text-gray-700 dark:text-gray-400">
+                                        Status: {nftAttributes.status}
+                                    </p>
+                                    <p className="font-normal text-gray-700 dark:text-gray-400">
+                                        Category: {nftAttributes.category}
+                                    </p>
+
+                                  </div>
+                                  {
+                                    nftAttributes.status !== "verified" &&
+                                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full' style={{alignSelf: 'end'}}onClick={() => setShowVerifyModal(true)}>Verify</button>
+                                  }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {
+              showVerifyModal &&
+              <VerifyModal
+                  documentName = {nftAttributes.name}
+                  cancelHandler={() => setShowVerifyModal(false)}/>
+            }
         </>
     );
 };
