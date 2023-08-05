@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from 'next/image'
 
-function SignIn() {
+function Login() {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
@@ -63,4 +63,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;

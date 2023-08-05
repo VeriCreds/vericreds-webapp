@@ -7,6 +7,12 @@ const UploadModal = (props) => {
   const [category, setCategory] = useState(undefined);
 
   const categories = ["Certificate", "Identification", "Transcript", "Reference Letter", "Recommendation Letter", "Diploma", "Other"];
+  const [file, setFile] = useState(undefined);
+  const [invalidFile, setInvalidFile] = useState(false);
+  const [status, setStatus] = useState(undefined);
+  const [category, setCategory] = useState(undefined);
+
+  const categories = ["Certificate", "Identification", "Transcript", "Reference Letter", "Recommendation Letter", "Diploma", "Other"];
 
   return (
     <div className="modal-background">
