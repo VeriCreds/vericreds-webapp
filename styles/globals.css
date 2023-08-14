@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: scroll;
 }
 
 .modal-content {
@@ -104,6 +105,11 @@
   right: 0px;
   bottom: 0px;
   left: 0px;
+}
+
+img.preview {
+  width: 250px;
+  border: 1px solid gray;
 }
 
 .error {

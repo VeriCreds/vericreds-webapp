@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const UploadModal = (props) => {
   const [file, setFile] = useState(undefined);
   const [invalidFile, setInvalidFile] = useState(false);
+  const [preview, setPreview] = useState();
   const [status, setStatus] = useState(undefined);
   const [category, setCategory] = useState(undefined);
 
   const categories = ["Certificate", "Identification", "Transcript", "Reference Letter", "Recommendation Letter", "Diploma", "Other"];
+
+  useEffect(() => {
+    if (!file) {
+        setPreview(undefined);
+        return;
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
 
   return (
     <div className="modal-background">
@@ -27,6 +41,12 @@ const UploadModal = (props) => {
                 <option value="verified">Verified</option>
               </select>
             </div>*/}
+            { (file.type === "image/png" || file.type === "image/jpeg") &&
+              <img className="preview" src={preview} />
+            }
+            { file.type === "application/pdf" &&
+              <iframe src={preview} />
+            }
             <div>
               <label htmlFor="category">Category </label>
               <select name="category" id="category" onChange={(e) => setCategory(e.target.value)}>
