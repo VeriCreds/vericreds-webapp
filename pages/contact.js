@@ -26,7 +26,7 @@ const Contact = (props) => {
           }
 
           executeRecaptcha("submit").then(async (gReCaptchaToken) => {
-              console.log(gReCaptchaToken, "response Google reCaptcha server");
+              // console.log(gReCaptchaToken, "response Google reCaptcha server");
               await submitEnquiryForm(gReCaptchaToken);
               setToken(gReCaptchaToken);
           });
@@ -42,9 +42,9 @@ const Contact = (props) => {
             message: message,
             gReCaptchaToken: token,
         }).then(async (res) => {
-            console.log(res);
-            console.log(res.data);
-            await console.log("gReCaptchaToken", token);
+            // console.log(res);
+            // console.log(res.data);
+            // await console.log("gReCaptchaToken", token);
             setLoading(true);
             if (res.data.status !== "error") {
                 toast.success("Message sent successfully");

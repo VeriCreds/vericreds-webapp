@@ -21,7 +21,7 @@ const AppProvider = ({ children }) => {
       const accounts = await ethereum.request({
         method: "eth_accounts",
       });
-      console.log(accounts);
+      // console.log(accounts);
       setAccount(accounts[0]);
     } catch (err) {
       setError(err.message);
@@ -34,7 +34,7 @@ const AppProvider = ({ children }) => {
         const accounts = await ethereum.request({
           method: "eth_requestAccounts",
         });
-        console.log(accounts);
+        // console.log(accounts);
         setAccount(accounts[0]);
       } catch (err) {
         setError(err.message);
