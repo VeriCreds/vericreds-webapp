@@ -4,7 +4,6 @@ import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from 'next/image'
-import axios from "axios";
 
 function Login() {
   const { connectAsync } = useConnect();
@@ -43,12 +42,6 @@ function Login() {
      */
     await push(url);
   };
-
-  const connectBackend = async () => {
-    // check if user is new, if they will need to
-    // get token every time
-    await axios.post("");
-  }
 
   return (
     
