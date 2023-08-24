@@ -2,10 +2,11 @@ import NextAuth from "next-auth";
 import { MoralisNextAuthProvider } from "@moralisweb3/next";
 
 export default NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [MoralisNextAuthProvider()],
   // adding user info to the user session object
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user}) {
       if (user) {
         token.user = user;
       }

@@ -8,7 +8,7 @@ import UploadModal from '../modals/UploadModal';
 
 const AllDocuments = (props) => {
 
-  console.log(props.user);
+  // console.log(props.user);
 
   const collection = [
     {
