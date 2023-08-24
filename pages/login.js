@@ -36,12 +36,13 @@ function Login() {
       redirect: false,
       callbackUrl: "/overview",
     });
+
     /**
      * instead of using signIn(..., redirect: "/user")
      * we get the url from callback and push it to the router to avoid page refreshing
      */
     await push(url);
-  };
+  }
 
   return (
     
@@ -54,7 +55,10 @@ function Login() {
           priority
         />
       <button
-        onClick={handleAuth}
+        onClick={() => {
+          handleAuth();
+          }
+        }
         className="mt-10 px-10 py-1 bg-gray-300 rounded-lg"
       >
         Log in with MetaMask
