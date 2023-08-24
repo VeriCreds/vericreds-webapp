@@ -9,32 +9,6 @@ import axios from "axios";
 const inter = Inter({ subsets: ['latin'] });
 
 function Home({ user }) {
-<<<<<<< Updated upstream
-=======
-
-  const connectBackend = async () => {
-    // check if user is new, if they will need to add to database
-    try {
-    // get token every time
-    await axios.post(`process.env.NEXT_PUBLIC_BASE_URL/users/login`, {
-      password: process.env.NEXT_PUBLIC_USER_PASSWORD,
-      metamask_address: user.metamask_address
-    })
-        .then((data) => console.log(data))
-        .catch((err) => console.error(err));
-    } catch (e) {
-      await axios.post('process.env.NEXT_PUBLIC_BASE_URL/users', {
-        first_name: "",
-        last_name: "",
-        metamask_address: user.metamask_address,
-        password: process.env.NEXT_PUBLIC_USER_PASSWORD,
-        email_address: ""
-      })
-    }
-  }
-
-  connectBackend()
->>>>>>> Stashed changes
 
   const connectBackend = async () => {
     // check if user is new, if they will need to add to database
