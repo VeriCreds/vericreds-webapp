@@ -1,11 +1,11 @@
-import Head from 'next/head'
-import {Inter} from 'next/font/google'
+import Head from 'next/head';
+import { Inter } from 'next/font/google';
 import Sidebar from '@/components/Sidebar';
 import Topbar from '@/components/Topbar';
 import AllDocuments from '../../components/AllDocuments';
 import { getSession } from "next-auth/react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 function Home({ user }) {
   return (
@@ -22,13 +22,12 @@ function Home({ user }) {
           <Topbar />
         </div>
         <div className="flex flex-grow">
-          <div className="sidebar w-64 bg-gray-100 flex-shrink-0">
+          {/* Conditionally render the sidebar */}
+          <div className="sidebar w-64 bg-gray-100 flex-shrink-0 hidden lg:block">
             <Sidebar />
           </div>
           <div className="content flex-grow bg-white">
-            <AllDocuments
-              user={user}
-            />
+            <AllDocuments user={user} />
           </div>
         </div>
       </div>
@@ -52,7 +51,7 @@ export const getServerSideProps = async (context) => {
     props: {
       user: session.user
     }
-  }
+  };
 }
 
 export default Home;
