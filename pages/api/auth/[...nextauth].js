@@ -7,27 +7,11 @@ export default NextAuth({
   providers: [MoralisNextAuthProvider()],
   // adding user info to the user session object
   callbacks: {
-    async jwt({ token, user}) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.user = user;
-        // check if user is new, if they will need to add to database
-
-        console.log("token", token);
-        console.log("user.address", user.address);
 
         const metamask_address = user.address;
-
-        const connectBackend = async () => {
-          await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/users/login`, {
-            password: process.env.NEXT_PUBLIC_USER_PASSWORD,
-            metamask_address: metamask_address
-          }, {
-            withCredentials: true
-          }).then((response) => {
-            console.log(response.data.data.token);
-            return response.data.data.token;
-          }).catch((err) => console.error(err))
-        }
 
         try {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/users/${metamask_address}`);
@@ -40,26 +24,38 @@ export default NextAuth({
               password: process.env.NEXT_PUBLIC_USER_PASSWORD,
               email_address: ""
             });
-
-            const backendToken = await connectBackend();
-            if (backendToken) {
-              token.accessToken = backendToken;
-            }
-
-            connectBackend();
-          } else {
-            connectBackend();
           }
+
+          const backendResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/users/login`, {
+            password: process.env.NEXT_PUBLIC_USER_PASSWORD,
+            metamask_address: metamask_address
+          });
+
+          // Adding the fetchedToken to the user session
+          if (backendResponse.data.data && backendResponse.data.data.token) {
+            token.fetchedToken = backendResponse.data.data.token;
+          }
+
         } catch (e) {
           console.error(e);
         }
-        return token;
       }
+      return token;
     },
     async session({ session, token }) {
       session.user = token.user;
-      session.backendToken = token.accessToken;
+      if (token.fetchedToken) {
+        session.user.fetchedToken = token.fetchedToken;
+      }
       return session;
     },
+    async signIn({ user }) {
+      if (user) {
+        console.log("user.address", user.address);
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 });

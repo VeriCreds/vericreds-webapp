@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { signOut } from "next-auth/react";
 
 // project imports
 import TableList from "@/components/AllDocuments/TableList";
@@ -145,13 +144,13 @@ const AllDocuments = (props) => {
         {/*  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"*/}
         {/*  onClick={() => signOut({ redirect: "/login" })}>Sign out</button>*/}
 
-        <div className="flex justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => signOut({ redirect: "/login" })}
-          >
-            Sign out
-          </button>
+        <div className="flex justify-end">
+          {/*<button*/}
+          {/*  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"*/}
+          {/*  onClick={() => signOut({ redirect: "/login" })}*/}
+          {/*>*/}
+          {/*  Sign out*/}
+          {/*</button>*/}
           <div className="flex justify-end">
             <div className="mr-5">
               <button

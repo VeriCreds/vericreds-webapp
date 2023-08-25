@@ -1,21 +1,34 @@
 import '@/styles/globals.css'
-import {createConfig, configureChains, WagmiConfig} from "wagmi";
+import { createConfig, configureChains, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import { mainnet, sepolia, filecoin } from "wagmi/chains";
-import { wrapper } from "@/app/store" ;
+import { useEffect } from 'react';
+import { wrapper } from "@/app/store";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const { provider, webSocketProvider } = configureChains(
-  [mainnet, sepolia, filecoin],
-  [publicProvider()]
+    [mainnet, sepolia, filecoin],
+    [publicProvider()]
 );
 
 const config = createConfig({
-  provider,
-  webSocketProvider,
-  autoConnect: true,
+    provider,
+    webSocketProvider,
+    autoConnect: true,
 });
+
+function AppContent({ Component, pageProps }) {
+    const { data: session } = useSession();
+
+    useEffect(() => {
+        if (session?.user?.fetchedToken) {
+            window.localStorage.setItem('Token', session.user.fetchedToken);
+        }
+    }, [session]);
+
+    return <Component {...pageProps} />;
+}
 
 function WrappedApp({ Component, ...rest }) {
     const { store, props } = wrapper.useWrappedStore(rest);
@@ -35,7 +48,7 @@ function WrappedApp({ Component, ...rest }) {
                         nonce: undefined // optional, default undefined
                     }}
                 >
-                    <Component {...pageProps} />
+                    <AppContent Component={Component} pageProps={pageProps} />
                 </GoogleReCaptchaProvider>
             </SessionProvider>
         </WagmiConfig>

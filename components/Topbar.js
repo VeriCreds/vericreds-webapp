@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Link from 'next/link';
+import { signOut } from "next-auth/react";
 
 const TopBar = () => {
     return (
@@ -18,6 +19,18 @@ const TopBar = () => {
         </div>
         <div className="profile-container">
           <img src="/profile.png" alt="Profile" className="w-8 h-8 mr-4 rounded-full" />
+        </div>
+        <div className="signout-button">
+            <button
+                style={{ backgroundColor: '#274C77' }}
+                className="bg-blue-900 hover:bg-blue-800 text-white py-1 px-4"
+                onClick={() => {
+                    signOut({redirect: "/login"})
+                    window?.localStorage?.removeItem("Token");
+                }}
+            >
+                Sign out
+            </button>
         </div>
       </div>
     );
