@@ -8,7 +8,8 @@ import UploadModal from "../modals/UploadModal";
 const AllDocuments = (props) => {
   // console.log(props.user);
 
-  const collection = [
+  /*
+  const [collection, setCollection] = useState([
     {
       name: "document1",
       format: "PDF",
@@ -104,7 +105,7 @@ const AllDocuments = (props) => {
       status: "minted",
       category: "Transcripts",
     },
-  ];
+  ]);*/
 
   const [fileChosen, setFileChosen] = useState(false);
 
@@ -251,9 +252,10 @@ const AllDocuments = (props) => {
             {/*      </>*/}
             {/*  ))}*/}
             {/*</ul>*/}
+            {/*props.collection*/}
             <TableList
               // viewMode={viewMode}
-              collection={collection}
+              collection={props.collection}
             />
           </>
         )}
@@ -270,7 +272,7 @@ const AllDocuments = (props) => {
             {/*    </li>*/}
             {/*  ))}*/}
             {/*</ul>*/}
-            <TableGrid collection={collection} />
+            <TableGrid collection={props.collection} />
           </>
         )}
       </div>
@@ -280,6 +282,8 @@ const AllDocuments = (props) => {
           setFileChosen={setFileChosen}
           cancelHandler={() => setShowUploadModal(false)}
           user={props.user}
+          collection={props.collection}
+          setCollection={props.setCollection}
         />
       )}
     </>

@@ -13,7 +13,7 @@ const TableGrid = (props) => {
 
     useEffect(() => {
         setFilteredCollection(props.collection.filter(document =>
-            document.category.toLowerCase().includes(searchTerm.toLowerCase())
+            document.category && document.category.toLowerCase().includes(searchTerm.toLowerCase())
         ));
     }, [searchTerm, props.collection]);
 

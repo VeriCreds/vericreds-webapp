@@ -64,7 +64,19 @@ const UploadModal = (props) => {
       created_at: new Date(),
     };
 
+    const newCollection = [...props.collection];
+    newCollection.push({
+      name: file.name,
+      format: file.type.split("/")[1].toUpperCase(),
+      image: `https://ipfs.io/ipfs/${cid}`,
+      status: "uploaded",
+      category: category,
+    });
+
     backendRequests.addNft(documentInfo);
+    props.setCollection(newCollection);
+    props.cancelHandler();
+    setFile(undefined);
   }, [cid]);
 
   return (

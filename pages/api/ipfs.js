@@ -14,7 +14,6 @@ export const config = {
 
 const saveFile = async (file) => {
   try {
-    console.log("SAVE FILE. FILE[0]: ", file[0]);
     const stream = fs.createReadStream(file[0].filepath);
     const options = {
       pinataMetadata: {

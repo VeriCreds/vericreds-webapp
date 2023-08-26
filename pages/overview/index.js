@@ -7,8 +7,7 @@ import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ['latin'] });
 
-function Home({ user }) {
-
+function Home({ user, collection, setCollection }) {
   return (
     <>
       <Head>
@@ -17,7 +16,7 @@ function Home({ user }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
+
       <div className="flex flex-col h-screen">
         <div className="topbar bg-gray-200 top-0">
           <Topbar />
@@ -28,7 +27,11 @@ function Home({ user }) {
             <Sidebar />
           </div>
           <div className="content flex-grow bg-white">
-            <AllDocuments user={user} />
+            <AllDocuments
+              user={user}
+              collection={collection}
+              setCollection={setCollection}
+            />
           </div>
         </div>
       </div>
@@ -53,6 +56,6 @@ export const getServerSideProps = async (context) => {
       user: session.user
     }
   };
-}
+};
 
 export default Home;
