@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // project imports
 import TableList from "@/components/AllDocuments/TableList";
 import TableGrid from "@/components/AllDocuments/TableGrid";
 import UploadModal from "../modals/UploadModal";
 import {ToastContainer} from "react-toastify";
+import * as backendRequests from "@/pages/api/backendRequests";
 
 const AllDocuments = (props) => {
   // console.log(props.user);
 
-  const collection = [
+  const [collection, setCollection] = useState([
     {
       name: "document1",
       format: "PDF",
@@ -105,7 +106,7 @@ const AllDocuments = (props) => {
       status: "minted",
       category: "Transcripts",
     },
-  ];
+  ]);
 
   const [fileChosen, setFileChosen] = useState(false);
 
@@ -139,6 +140,33 @@ const AllDocuments = (props) => {
     transition: "all 0.3s ease",
     transform: isHovered ? "scale(1.1)" : "scale(1)",
   };
+
+  useEffect(() => {
+    backendRequests.getAllNfts()
+      .then(response => {
+        if (response.success) {
+          const newCollection = [];
+          for (const dataItem of response.data) {
+            // console.log(dataItem);
+            newCollection.push({
+              name: dataItem.name,
+              format: dataItem.format,
+              image:
+                `https://ipfs.io/ipfs/${dataItem.nft_id}`,
+              status: dataItem.status,
+              category: dataItem.category,
+            });
+          }
+          setCollection(newCollection);
+        } else {
+          console.log(response.message);
+        }
+       
+      })
+      .catch(error => {
+        console.error("Error: ", error);
+      });
+  }, []);
 
   return (
     <>

@@ -44,4 +44,38 @@ const addNft = async (documentInfo) => {
       });
 };
 
-export { addNft };
+const getAllNfts = async () => {
+  const token = window?.localStorage?.getItem('Token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    withCredentials: false,
+  };
+
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/nfts/`,
+    config
+  )
+    .then((response) => {
+      console.log(response);
+      // Return the response for a successful API call
+      return {
+        success: true,
+        message: "Successfully retrieved all NFTs!",  // You can customize this using the response if needed
+        data: response.data.data
+      };
+    })
+    .catch((error) => {
+      console.error("Axios error:", error.response ? error.response.data : error.message);
+      // Return the error for a failed API call
+      return {
+        success: false,
+        message: error.response ? error.response.data : "Error retrieving NFTs!"
+      };
+    });
+
+}
+
+export { addNft, getAllNfts };
